@@ -12,15 +12,16 @@ public class trivial : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject creditsScreen;
     public GameObject questionScreen;
+    public GameObject errorMessage; //Bea
 
     public Button Dice;
     public int diceRange;
 
     public List<string[]> preguntasRespuestas = new List<string[]>()
 {
-    new string[] { "¿En qué año fue fundada la ciudad de Roma?", "753 a.C.", "900 d.C.", "1812 d.C.", "117 d.C." },
-    new string[] { "¿Qué río pasa por París?", "El Sena", "El Támesis", "El Danubio", "El Nilo" },
-    new string[] { "¿Cuál es el planeta más grande del sistema solar?", "Júpiter", "Tierra", "Marte", "Venus" },
+    new string[] { "ï¿½En quï¿½ aï¿½o fue fundada la ciudad de Roma?", "753 a.C.", "900 d.C.", "1812 d.C.", "117 d.C." },
+    new string[] { "ï¿½Quï¿½ rï¿½o pasa por Parï¿½s?", "El Sena", "El Tï¿½mesis", "El Danubio", "El Nilo" },
+    new string[] { "ï¿½Cuï¿½l es el planeta mï¿½s grande del sistema solar?", "Jï¿½piter", "Tierra", "Marte", "Venus" },
 
 };
 
@@ -52,8 +53,9 @@ public class trivial : MonoBehaviour
     {
         gameScreen.SetActive(false);
         victoryScreen.SetActive(false);
+        errorMessage.SetActive(false); //Bea
 
-        // Mostrar el menú principal
+        // Mostrar el menï¿½ principal
         mainMenuScreen.SetActive(true);
     }
 
@@ -70,14 +72,23 @@ public class trivial : MonoBehaviour
 
     }
     
-    public void game()
+    public void game() //Bea
     {
-        gameScreen.SetActive(true);
-        newGameScreen.SetActive(false);
+        if (!string.IsNullOrEmpty(player1NameInput.text) && !string.IsNullOrEmpty(player2NameInput.text)) 
+        {
+            gameScreen.SetActive(true);
+            newGameScreen.SetActive(false);
 
-        banner1.text = player1NameInput.text;
-        banner2.text = player2NameInput.text;
+            banner1.text = player1NameInput.text;
+            banner2.text = player2NameInput.text;
 
+        }
+        else
+        {
+            errorMessage.SetActive(true);
+        }
+        
+        
 
     }
 
@@ -100,7 +111,7 @@ public class trivial : MonoBehaviour
 
     private void rollDice()
     {
-        //desactiva el dado una vez asi el jugador no podrá darle
+        //desactiva el dado una vez asi el jugador no podrï¿½ darle
         Dice.interactable = false;
 
         diceRange = Random.Range(1, 4);
