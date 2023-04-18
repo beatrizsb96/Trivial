@@ -13,6 +13,7 @@ public class trivial : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject creditsScreen;
     public GameObject questionScreen;
+    public GameObject errorMessage; //Bea
 
     private int Actual = 0;
    // private int indexActual = 0;
@@ -22,6 +23,17 @@ public class trivial : MonoBehaviour
     public Text Dice;
     public int diceRange;
 
+<<<<<<< HEAD
+=======
+    public List<string[]> preguntasRespuestas = new List<string[]>()
+{
+    new string[] { "ï¿½En quï¿½ aï¿½o fue fundada la ciudad de Roma?", "753 a.C.", "900 d.C.", "1812 d.C.", "117 d.C." },
+    new string[] { "ï¿½Quï¿½ rï¿½o pasa por Parï¿½s?", "El Sena", "El Tï¿½mesis", "El Danubio", "El Nilo" },
+    new string[] { "ï¿½Cuï¿½l es el planeta mï¿½s grande del sistema solar?", "Jï¿½piter", "Tierra", "Marte", "Venus" },
+
+};
+
+>>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
     public Text banner1;
     public Text banner2;
 
@@ -65,11 +77,15 @@ public class trivial : MonoBehaviour
     {
         gameScreen.SetActive(false);
         victoryScreen.SetActive(false);
+<<<<<<< HEAD
         errorMessage.SetActive(false);
         newGameScreen.SetActive(false);
         questionScreen.SetActive(false);
+=======
+        errorMessage.SetActive(false); //Bea
+>>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
-        // Mostrar el menú principal
+        // Mostrar el menï¿½ principal
         mainMenuScreen.SetActive(true);
 
         // Inicializar las listas de preguntas
@@ -105,8 +121,9 @@ public class trivial : MonoBehaviour
 
     }
     
-    public void game()
+    public void game() //Bea
     {
+<<<<<<< HEAD
         if (!string.IsNullOrEmpty(player1NameInput.text) && !string.IsNullOrEmpty(player2NameInput.text))
         {
             gameScreen.SetActive(true);
@@ -124,6 +141,23 @@ public class trivial : MonoBehaviour
 
             players[0] = player1NameInput.text;
             players[1] = player2NameInput.text;
+=======
+        if (!string.IsNullOrEmpty(player1NameInput.text) && !string.IsNullOrEmpty(player2NameInput.text)) 
+        {
+            gameScreen.SetActive(true);
+            newGameScreen.SetActive(false);
+
+            banner1.text = player1NameInput.text;
+            banner2.text = player2NameInput.text;
+
+        }
+        else
+        {
+            errorMessage.SetActive(true);
+        }
+        
+        
+>>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
             
 
@@ -160,12 +194,21 @@ public class trivial : MonoBehaviour
 
     public void rollDice()
     {
+<<<<<<< HEAD
         // diceRange atributo que indica el numero random entre 1 y 3
         diceRange = Random.Range(1, 3);
         // Se iguala el numero al texto del boton
         Dice.text = diceRange.ToString();
         // Muestra la pantalla pregunta
         showPreguntas();
+=======
+        //desactiva el dado una vez asi el jugador no podrï¿½ darle
+        Dice.interactable = false;
+
+        diceRange = Random.Range(1, 4);
+
+        Dice.GetComponent<Text>().text = diceRange.ToString();
+>>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
 
     }
