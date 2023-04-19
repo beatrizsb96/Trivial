@@ -13,27 +13,15 @@ public class trivial : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject creditsScreen;
     public GameObject questionScreen;
-    public GameObject errorMessage; //Bea
 
     private int Actual = 0;
-   // private int indexActual = 0;
+
 
     public GameObject errorMessage;
 
     public Text Dice;
     public int diceRange;
 
-<<<<<<< HEAD
-=======
-    public List<string[]> preguntasRespuestas = new List<string[]>()
-{
-    new string[] { "ï¿½En quï¿½ aï¿½o fue fundada la ciudad de Roma?", "753 a.C.", "900 d.C.", "1812 d.C.", "117 d.C." },
-    new string[] { "ï¿½Quï¿½ rï¿½o pasa por Parï¿½s?", "El Sena", "El Tï¿½mesis", "El Danubio", "El Nilo" },
-    new string[] { "ï¿½Cuï¿½l es el planeta mï¿½s grande del sistema solar?", "Jï¿½piter", "Tierra", "Marte", "Venus" },
-
-};
-
->>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
     public Text banner1;
     public Text banner2;
 
@@ -54,38 +42,37 @@ public class trivial : MonoBehaviour
     public Image[] achievements2;
 
     public Text[] answerButtons; // Array de botones para respuestas
+    public Button[] buttonsRespuesta;
 
     public Text timeText;
     public Text categoryText;
     public Text questionText;
 
+    private string[] preguntas;
+
+
     private int[] scores = { 0, 0 };
     private int[] playerLives = { 5, 5 };
 
-    private List<Question>[] questionLists;
-    private int respuestaCorrecta;
     
+    public List<Question>[] questionLists;
+    private int respuestaCorrecta;
+    private int MAX_LIVES = 5;
+
     private string[] players = new string[2];
 
-    // Variables de control del juego
-   /* private bool gameStarted = false;
-    private bool waitingForAnswer = false;*/
-    //private float timeRemaining = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         gameScreen.SetActive(false);
         victoryScreen.SetActive(false);
-<<<<<<< HEAD
         errorMessage.SetActive(false);
         newGameScreen.SetActive(false);
         questionScreen.SetActive(false);
-=======
-        errorMessage.SetActive(false); //Bea
->>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
-        // Mostrar el menï¿½ principal
+        // Mostrar el menú principal
         mainMenuScreen.SetActive(true);
 
         // Inicializar las listas de preguntas
@@ -113,6 +100,39 @@ public class trivial : MonoBehaviour
             }
         }*/
     }
+    // 
+    public IEnumerator startTimer()
+    {
+        int timeRemaining = 10;
+        while (timeRemaining > 0)
+        {
+            if(timeRemaining > 0)
+            {
+                yield return new WaitForSeconds(1);
+                timeRemaining--;
+                timeText.text = timeRemaining.ToString();
+                for(int i = 0; i < buttonsRespuesta.Length; i++)
+                {
+                    if (buttonsRespuesta[i].gameObject)
+                    {
+                        
+                    }
+                }
+                
+            }else if(timeRemaining == 0)
+            {
+                // Si el tiempo llega a cero, quita una vida al jugador actual y muestra la siguiente pregunta
+                playerLives[Actual]--;
+                updateLives(hearts1, playerLives[0]);
+                updateLives(hearts2, playerLives[1]);
+                questionScreen.SetActive(false);
+            }
+            
+        }
+
+
+       
+    }
 
     public void NewGame()
     {
@@ -121,9 +141,8 @@ public class trivial : MonoBehaviour
 
     }
     
-    public void game() //Bea
+    public void game()
     {
-<<<<<<< HEAD
         if (!string.IsNullOrEmpty(player1NameInput.text) && !string.IsNullOrEmpty(player2NameInput.text))
         {
             gameScreen.SetActive(true);
@@ -141,23 +160,6 @@ public class trivial : MonoBehaviour
 
             players[0] = player1NameInput.text;
             players[1] = player2NameInput.text;
-=======
-        if (!string.IsNullOrEmpty(player1NameInput.text) && !string.IsNullOrEmpty(player2NameInput.text)) 
-        {
-            gameScreen.SetActive(true);
-            newGameScreen.SetActive(false);
-
-            banner1.text = player1NameInput.text;
-            banner2.text = player2NameInput.text;
-
-        }
-        else
-        {
-            errorMessage.SetActive(true);
-        }
-        
-        
->>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
             
 
@@ -185,7 +187,25 @@ public class trivial : MonoBehaviour
 
         player1NameInput.text = "Introduzca el jugador 1";
         player2NameInput.text = "Introduzca el jugador 2";
+
+
     }
+
+    public void restart()
+    {
+        scores[0] = 0;
+        scores[1] = 0;
+        playerLives[0] = MAX_LIVES;
+        playerLives[1] = MAX_LIVES;
+        updateLives(hearts1, 5);
+        updateLives(hearts2, 5);
+        updateScores(achievements1, 0);
+        updateScores(achievements2, 0);
+        gameScreen.SetActive(true);
+        questionScreen.SetActive(false);
+        victoryScreen.SetActive(false);
+    }
+
     // Sale de la aplicacion NECESITA ARREGLO NO FUNCIONA
     public void quit()
     {
@@ -194,21 +214,13 @@ public class trivial : MonoBehaviour
 
     public void rollDice()
     {
-<<<<<<< HEAD
         // diceRange atributo que indica el numero random entre 1 y 3
-        diceRange = Random.Range(1, 3);
+        diceRange = Random.Range(1, 4);
+        print(diceRange);
         // Se iguala el numero al texto del boton
         Dice.text = diceRange.ToString();
         // Muestra la pantalla pregunta
         showPreguntas();
-=======
-        //desactiva el dado una vez asi el jugador no podrï¿½ darle
-        Dice.interactable = false;
-
-        diceRange = Random.Range(1, 4);
-
-        Dice.GetComponent<Text>().text = diceRange.ToString();
->>>>>>> 9293a77a68c3e32d56ead3693ef15d6cfc6bf2e8
 
 
     }
@@ -220,10 +232,10 @@ public class trivial : MonoBehaviour
         switch (diceRange)
         {
             case 1:
-                categoriaSeleccionada = CienciasQuestions;
+                categoriaSeleccionada = HistoriaQuestions;
                 break;
             case 2:
-                categoriaSeleccionada = HistoriaQuestions;
+                categoriaSeleccionada = CienciasQuestions;
                 break;
             case 3:
                 categoriaSeleccionada = EntretenimientoQuestions;
@@ -231,7 +243,7 @@ public class trivial : MonoBehaviour
         }
         
         // Obtener una pregunta aleatoria de la categoria seleccionada
-        int indexPregunta = Random.Range(1, 3);
+        int indexPregunta = Random.Range(0, 3);
         Question preguntaSeleccionada = categoriaSeleccionada[indexPregunta];
 
         //Mostrar la pregunta en la pantalla
@@ -248,6 +260,8 @@ public class trivial : MonoBehaviour
 
 
         questionScreen.SetActive(true);
+
+        StartCoroutine(startTimer());
         
 
     }
@@ -273,12 +287,49 @@ public class trivial : MonoBehaviour
         {
             // La respuesta es correcta
             scores[Actual]++;
+
+            // Mostrar imagen correspondiente a la pregunta
+            if (Actual == 0)
+            {
+                switch (diceRange)
+                {
+                    case 1:
+                        achievements1[0].gameObject.SetActive(true);
+                        break;
+                    case 2:
+                        achievements1[1].gameObject.SetActive(true);
+                        break;
+                    case 3:
+                        achievements1[2].gameObject.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }else if (Actual == 1)
+            {
+                switch (diceRange)
+                {
+                    case 1:
+                        achievements2[0].gameObject.SetActive(true);
+                        break;
+                    case 2:
+                        achievements2[1].gameObject.SetActive(true);
+                        break;
+                    case 3:
+                        achievements2[2].gameObject.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
             questionScreen.SetActive(false);
             if (scores[Actual] == 3)
             {
                 // Mostrar la pantalla de victoria
                 victoryScreen.SetActive(true);
                 gameScreen.SetActive(false);
+
                 if (Actual == 0)
                 {
                     victoriaJugador.text = players[0];
@@ -326,12 +377,9 @@ public class trivial : MonoBehaviour
                 siguienteTurno();
                 questionScreen.SetActive(false);
             }
+            siguienteTurno();
 
         }
-    }
-    private string jugadorActual()
-    {
-        return players[Actual];
     }
     // Actualizar las vidas de los jugadores
     public void updateLives(Image[] heartImages, int numLives)
@@ -351,6 +399,25 @@ public class trivial : MonoBehaviour
             }
         }
     }
+    // Actualizar la puntuación del jugador
+    public void updateScores(Image[] achivement, int score)
+    {
+
+        // Actualizar la imagen de la puntuación del jugador
+        for (int i = 0; i < achivement.Length; i++)
+        {
+            if (i < score)
+            {
+                // La imagen de puntuación debe estar activada
+                achivement[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                // La imagen de puntuación debe estar desactivada
+                achivement[i].gameObject.SetActive(false);
+            }
+        }
+    }
     // Pasa el turno del jugador
     public void siguienteTurno()
     {
@@ -365,17 +432,14 @@ public class trivial : MonoBehaviour
             hearts1[i].enabled = (i < playerLives[0]);
             hearts2[i].enabled = (i < playerLives[1]);
         }
-        for (int i = 0; i < achievements1.Length; i++)
-        {
-            achievements1[i].enabled = (scores[0] > i);
-            achievements2[i].enabled = (scores[1] > i);
-        }
-
+        
         // Volver a mostrar la pantalla del juego
         gameScreen.SetActive(true);
         questionScreen.SetActive(false);
     }
     // Esta es la clase de Preguntas
+    
+
     public class Question
     {
         public string QuestionText { get; set; } //texto de la pregunta
@@ -453,14 +517,6 @@ public class trivial : MonoBehaviour
 
 
 /*Lista de cosas que faltan:
- * Poner un texto donde baje el tiempo cuando se contesta la pregunta de 10 segundos hacia 0, cuando se conteste a la pregunta antes del tiempo
- * mostrara otra vez la pantalla del juego y se quitara la pregunta si ha fallado un corazon menos si ha acertado un logro mas
- * Si se acaba el tiempo pasa al siguiente jugador
- * Saber que jugador esta jugando y cuando falle pasar al siguiente jugador
- * Cuando un jugador tenga todos las categorias correctas que salga la pantalla victoria, array de imagenes creo
- * Que salgan las respuestas en los botones respectivamente a su pregunta que haya salido
- * Los botones de las respuestas que sean verdes para las correctas y rojas para las incorrectas
- * Cuando falles se resta una vida, es decir, tendriamos un array de imagenes y se restaria uno a uno la vida cuando fallas una pregunta
  * Falta el boton restart en la pantalla del game de preguntas, el boton verde donde pone restart
  * 
 */
