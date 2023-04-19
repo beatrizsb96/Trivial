@@ -61,6 +61,8 @@ public class trivial : MonoBehaviour
 
     private string[] players = new string[2];
 
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +74,7 @@ public class trivial : MonoBehaviour
         newGameScreen.SetActive(false);
         questionScreen.SetActive(false);
 
-        // Mostrar el menú principal
+        // Mostrar el menï¿½ principal
         mainMenuScreen.SetActive(true);
 
         // Inicializar las listas de preguntas
@@ -80,6 +82,11 @@ public class trivial : MonoBehaviour
         questionLists[0] = CienciasQuestions;
         questionLists[1] = HistoriaQuestions;
         questionLists[2] = EntretenimientoQuestions;
+
+        //Reproducir sonido durante el juego
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = true;
+        audioSource.Play();
 
         
     }
@@ -347,7 +354,7 @@ public class trivial : MonoBehaviour
             playerLives[Actual]--;
             questionScreen.SetActive(false);
             siguienteTurno();
-            // Actualizar el número de vidas en la pantalla
+            // Actualizar el nï¿½mero de vidas en la pantalla
             if (Actual == 0)
             {
                 updateLives(hearts1, playerLives[Actual]);
@@ -384,36 +391,36 @@ public class trivial : MonoBehaviour
     // Actualizar las vidas de los jugadores
     public void updateLives(Image[] heartImages, int numLives)
     {
-        // Mostrar las imágenes de corazón correspondientes al número de vidas restantes
+        // Mostrar las imï¿½genes de corazï¿½n correspondientes al nï¿½mero de vidas restantes
         for (int i = 0; i < heartImages.Length; i++)
         {
             if (i < numLives)
             {
-                // La imagen de corazón debe estar activada
+                // La imagen de corazï¿½n debe estar activada
                 heartImages[i].gameObject.SetActive(true);
             }
             else
             {
-                // La imagen de corazón debe estar desactivada
+                // La imagen de corazï¿½n debe estar desactivada
                 heartImages[i].gameObject.SetActive(false);
             }
         }
     }
-    // Actualizar la puntuación del jugador
+    // Actualizar la puntuaciï¿½n del jugador
     public void updateScores(Image[] achivement, int score)
     {
 
-        // Actualizar la imagen de la puntuación del jugador
+        // Actualizar la imagen de la puntuaciï¿½n del jugador
         for (int i = 0; i < achivement.Length; i++)
         {
             if (i < score)
             {
-                // La imagen de puntuación debe estar activada
+                // La imagen de puntuaciï¿½n debe estar activada
                 achivement[i].gameObject.SetActive(true);
             }
             else
             {
-                // La imagen de puntuación debe estar desactivada
+                // La imagen de puntuaciï¿½n debe estar desactivada
                 achivement[i].gameObject.SetActive(false);
             }
         }
@@ -444,27 +451,27 @@ public class trivial : MonoBehaviour
     {
         public string QuestionText { get; set; } //texto de la pregunta
         public string[] Options { get; set; } //Array de string de las respuestas
-        public int CorrectOptionIndex { get; set; } //numero de la posicion donde está la respuesta
+        public int CorrectOptionIndex { get; set; } //numero de la posicion donde estï¿½ la respuesta
     }
 
     public List<Question> CienciasQuestions = new List<Question>()
 {
     new Question()
     {
-        QuestionText = "¿Cuál es el elemento más abundante en el universo?",
-        Options = new string[] {"Helio", "Oxígeno", "Hidrógeno", "Carbono" },
+        QuestionText = "CIENCIA: CUAL ES EL ELEMENTO MAS ABUNDANTE DEL UNIVERSO?",
+        Options = new string[] {"HELIO", "OXIGENO", "HIDROGENO", "CARBONO" },
         CorrectOptionIndex = 2
     },
     new Question()
     {
-        QuestionText = "¿Cuál es la fórmula química del agua?",
+        QuestionText = "CIENCIA: CUAL ES LA FORMULA QUIMICA DEL AGUA?",
         Options = new string[] {"H2O", "CO2", "NaCl", "CH4"},
         CorrectOptionIndex = 0
     },
     new Question()
     {
-        QuestionText = "¿Quién descubrió la penicilina?",
-        Options = new string[] {"Marie Curie", "Alexander Fleming", "Albert Einstein", "Isaac Newton"},
+        QuestionText = "CIENCIA: QUIEN DESCUBRIO LA PENICILINA?",
+        Options = new string[] {"MARIE CURIE", "ALEXANDER FLEMING", "ALBERT EINSTEIN", "ISAAC NEWTON"},
         CorrectOptionIndex = 1
     }
 };
@@ -473,19 +480,19 @@ public class trivial : MonoBehaviour
 {
     new Question()
     {
-        QuestionText = "¿En qué año se descubrió América?",
+        QuestionText = "HISTORIA: CUANDO OCURRIO EL DESCUBRIMIENTO DE AMERICA?",
         Options = new string[] {"1776", "1812", "1945","1492"},
         CorrectOptionIndex = 3
     },
     new Question()
     {
-        QuestionText = "¿Quién fue el primer presidente de los Estados Unidos?",
-        Options = new string[] {"Abraham Lincoln", "George Washington", "Thomas Jefferson", "John F. Kennedy"},
+        QuestionText = "HISTORIA: QUIEN FUE EL PRIMER PRESIDENTE DE LOS ESTADOS UNIDOS?",
+        Options = new string[] {"ABRAHAM LINCOLN", "GEORGE WASHINGTON", "THOMAS JEFFERSON", "JOHN F. KENNEDY"},
         CorrectOptionIndex = 1
     },
     new Question()
     {
-        QuestionText = "¿En qué año comenzó la Segunda Guerra Mundial?",
+        QuestionText = "HISTORIA: CUANDO EMPEZO LA SEGUNDA GUERRA MUNDIAL?",
         Options = new string[] {"1939", "1941", "1943", "1945"},
         CorrectOptionIndex = 0
     }
@@ -495,20 +502,20 @@ public class trivial : MonoBehaviour
 {
     new Question()
     {
-        QuestionText = "¿Quién escribió la saga de Harry Potter?",
-        Options = new string[] {"J.K. Rowling", "Stephenie Meyer", "Suzanne Collins", "Veronica Roth"},
+        QuestionText = "ENTRETENIMIENTO: QUIEN ESCRIBIO LA SAGA DE HARRY POTTER?",
+        Options = new string[] {"J.K. ROWLING", "STEPHENIE MEYER", "SUZANNE COLLINS", "VERONICA ROTH"},
         CorrectOptionIndex = 0
     },
     new Question()
     {
-        QuestionText = "¿En qué película aparece el personaje de Darth Vader?",
-        Options = new string[] {"Indiana Jones", "Jurassic Park", "Star Wars", "Titanic" },
+        QuestionText = "ENTRETENIMIENTO: EN QUE PELICULA APARECE EL PERSONAJE DE DARTH VADER?",
+        Options = new string[] {"INDIANA JONES", "JURASSIC PARK", "STAR WARS", "TITANIC" },
         CorrectOptionIndex = 2
     },
     new Question()
     {
-        QuestionText = "¿Cuál es el nombre del personaje principal en Breaking Bad?",
-        Options = new string[] {"Jesse Pinkman", "Gus Fring", "Walter White", "Saul Goodman" },
+        QuestionText = "ENTRETENIMIENTO: CUAL ES EL NOMBRE DEL PERSONAJE PRINCIPAL EN BREAKING BAD?",
+        Options = new string[] {"JESSE PINKMAN", "GUS FRING", "WALTER WHITE", "SAUL GOODMAN" },
         CorrectOptionIndex = 2
     }
 };
