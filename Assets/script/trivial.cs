@@ -216,7 +216,7 @@ public class trivial : MonoBehaviour
         // Se iguala el numero al texto del boton
         Dice.text = diceRange.ToString();
         // Muestra la pantalla pregunta
-        showPreguntas();
+        Invoke("showPreguntas", 2f);
 
 
     }
@@ -533,5 +533,8 @@ public class trivial : MonoBehaviour
 
 /*Lista de cosas que faltan:
  * Falta el boton restart en la pantalla del game de preguntas, el boton verde donde pone restart
- * 
+ * Falta poner que cuando se obtenga una categoría, ya no salga más ninguna pregunta de esa categoría
+ * El juego se sigue iniciando cuando hay alguno de los dos inputFields vacíos
+ * Cuando se le da al restart, reinicia con las vidas como terminó la última partida
+ * Poner en verde la pregunta si es correcta, dejar un tramo de 2 segundos para que se vea.
 */
