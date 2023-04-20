@@ -63,7 +63,8 @@ public class trivial : MonoBehaviour
 
     private AudioSource audioSource;
 
-
+    public bool starttime =false;
+    public float time = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +88,7 @@ public class trivial : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = true;
         audioSource.Play();
+        
 
         
     }
@@ -95,50 +97,36 @@ public class trivial : MonoBehaviour
     void Update()
     {
         //ESTO NO SE SI FUNCIONA NO LO HE PROBADO ES EL TIEMPO DE TRANSCURRE CUANDO CONTESTAS LA PREGUNTS
-       /* if (gameStarted && waitingForAnswer)
-        {
-            timeRemaining -= Time.deltaTime;
-            timeText.text = Mathf.RoundToInt(timeRemaining).ToString();
+        /* if (gameStarted && waitingForAnswer)
+         {
+             timeRemaining -= Time.deltaTime;
+             timeText.text = Mathf.RoundToInt(timeRemaining).ToString();
 
-            if (timeRemaining <= 0)
-            {
-                waitingForAnswer = false;
-               
-            }
-        }*/
-    }
-    // 
-    public IEnumerator startTimer()
-    {
-        int timeRemaining = 10;
-        while (timeRemaining > 0)
+             if (timeRemaining <= 0)
+             {
+                 waitingForAnswer = false;
+
+             }
+         }*/
+        timeText.text = time.ToString("F0");
+        if (starttime == true)
         {
-            if(timeRemaining > 0)
+           
+            time -= Time.deltaTime;
+            if (time <= 0)
             {
-                yield return new WaitForSeconds(1);
-                timeRemaining--;
-                timeText.text = timeRemaining.ToString();
-                for(int i = 0; i < buttonsRespuesta.Length; i++)
-                {
-                    if (buttonsRespuesta[i].gameObject)
-                    {
-                        
-                    }
-                }
-                
-            }else if(timeRemaining == 0)
-            {
-                // Si el tiempo llega a cero, quita una vida al jugador actual y muestra la siguiente pregunta
                 playerLives[Actual]--;
                 updateLives(hearts1, playerLives[0]);
                 updateLives(hearts2, playerLives[1]);
                 questionScreen.SetActive(false);
+                starttime = false;
+                siguienteTurno();
             }
-            
         }
+        
 
 
-       
+
     }
 
     public void NewGame()
@@ -194,6 +182,7 @@ public class trivial : MonoBehaviour
 
         player1NameInput.text = "Introduzca el jugador 1";
         player2NameInput.text = "Introduzca el jugador 2";
+
 
 
     }
@@ -268,8 +257,9 @@ public class trivial : MonoBehaviour
 
         questionScreen.SetActive(true);
 
-        StartCoroutine(startTimer());
-        
+
+        starttime = true;
+        time = 10;
 
     }
 
@@ -292,8 +282,6 @@ public class trivial : MonoBehaviour
     {
         if (esRespuestaCorrecta(respuestaSeleccionada))
         {
-            // La respuesta es correcta
-            scores[Actual]++;
 
             // Mostrar imagen correspondiente a la pregunta
             if (Actual == 0)
@@ -312,7 +300,8 @@ public class trivial : MonoBehaviour
                     default:
                         break;
                 }
-            }else if (Actual == 1)
+            }
+            else if (Actual == 1)
             {
                 switch (diceRange)
                 {
@@ -329,25 +318,40 @@ public class trivial : MonoBehaviour
                         break;
                 }
             }
-            
-            questionScreen.SetActive(false);
-            if (scores[Actual] == 3)
-            {
-                // Mostrar la pantalla de victoria
+
+
+            if (achievements1[0].IsActive() && achievements1[1].IsActive() && achievements1[2].IsActive()) {
                 victoryScreen.SetActive(true);
                 gameScreen.SetActive(false);
-
-                if (Actual == 0)
-                {
-                    victoriaJugador.text = players[0];
-                }
-                else
-                {
-                    victoriaJugador.text = players[1];
-                }
+                victoriaJugador.text = players[0];
             }
+            if (achievements2[0].IsActive() && achievements2[1].IsActive() && achievements2[2].IsActive())
+            {
+                victoryScreen.SetActive(true);
+                gameScreen.SetActive(false);
+                victoriaJugador.text = players[1];
+            }
+            questionScreen.SetActive(false);
 
         }
+
+
+            //if (scores[Actual] == 3)
+            //{
+            //    // Mostrar la pantalla de victoria
+            //    victoryScreen.SetActive(true);
+            //    gameScreen.SetActive(false);
+
+            //    if (Actual == 0)
+            //    {
+            //        victoriaJugador.text = players[0];
+            //    }
+            //    else
+            //    {
+            //        victoriaJugador.text = players[1];
+            //    }
+            //}
+
         else
         {
             // La respuesta es incorrecta
@@ -387,6 +391,10 @@ public class trivial : MonoBehaviour
             siguienteTurno();
 
         }
+
+        starttime = false;
+        time = 10;
+        
     }
     // Actualizar las vidas de los jugadores
     public void updateLives(Image[] heartImages, int numLives)
