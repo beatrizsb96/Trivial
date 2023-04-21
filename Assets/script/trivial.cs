@@ -88,6 +88,9 @@ public class trivial : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = true;
         audioSource.Play();
+
+        player1NameInput.text = "";
+        player2NameInput.text = "";
         
 
         
@@ -184,8 +187,7 @@ public class trivial : MonoBehaviour
         gameScreen.SetActive(false);
         questionScreen.SetActive(false);
 
-        player1NameInput.text = "Introduzca el jugador 1";
-        player2NameInput.text = "Introduzca el jugador 2";
+
 
 
 
