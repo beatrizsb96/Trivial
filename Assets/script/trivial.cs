@@ -152,6 +152,10 @@ public class trivial : MonoBehaviour
             scores[1] = 0; // Puntucion Maxima 3
             playerLives[0] = 5; // Array de Vidas del jugador 1
             playerLives[1] = 5; // Array de Vidad del jugador 2
+            updateLives(hearts1, 5);
+            updateLives(hearts2, 5);
+            updateScores(achievements1, 0);
+            updateScores(achievements2, 0);
 
             players[0] = player1NameInput.text;
             players[1] = player2NameInput.text;
@@ -193,13 +197,14 @@ public class trivial : MonoBehaviour
         scores[1] = 0;
         playerLives[0] = MAX_LIVES;
         playerLives[1] = MAX_LIVES;
-        updateLives(hearts1, 5);
-        updateLives(hearts2, 5);
-        updateScores(achievements1, 0);
-        updateScores(achievements2, 0);
-        gameScreen.SetActive(true);
+        updateLives(hearts1, playerLives[0]);
+        updateLives(hearts2, playerLives[1]);
+        updateScores(achievements1, scores[0]);
+        updateScores(achievements2, scores[1]);
+        gameScreen.SetActive(false);
         questionScreen.SetActive(false);
         victoryScreen.SetActive(false);
+        newGameScreen.SetActive(true);
     }
 
     // Sale de la aplicacion NECESITA ARREGLO NO FUNCIONA
@@ -336,22 +341,6 @@ public class trivial : MonoBehaviour
         }
 
 
-            //if (scores[Actual] == 3)
-            //{
-            //    // Mostrar la pantalla de victoria
-            //    victoryScreen.SetActive(true);
-            //    gameScreen.SetActive(false);
-
-            //    if (Actual == 0)
-            //    {
-            //        victoriaJugador.text = players[0];
-            //    }
-            //    else
-            //    {
-            //        victoriaJugador.text = players[1];
-            //    }
-            //}
-
         else
         {
             // La respuesta es incorrecta
@@ -442,12 +431,11 @@ public class trivial : MonoBehaviour
         banner1.color = (Actual == 0) ? Color.red : Color.white;
         banner2.color = (Actual == 1) ? Color.red : Color.white;
 
-        for (int i = 0; i < hearts1.Length; i++)
-        {
-            hearts1[i].enabled = (i < playerLives[0]);
-            hearts2[i].enabled = (i < playerLives[1]);
-        }
-        
+        updateLives(hearts1, playerLives[0]);
+        updateLives(hearts2, playerLives[1]);
+        updateScores(achievements1, scores[0]);
+        updateScores(achievements2, scores[1]);
+
         // Volver a mostrar la pantalla del juego
         gameScreen.SetActive(true);
         questionScreen.SetActive(false);
