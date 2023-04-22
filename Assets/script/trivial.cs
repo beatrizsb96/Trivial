@@ -223,7 +223,7 @@ public class trivial : MonoBehaviour
         // Se iguala el numero al texto del boton
         Dice.text = diceRange.ToString();
         // Muestra la pantalla pregunta
-        Invoke("showPreguntas", 2f);
+        Invoke("showPreguntas", 1f);
 
 
     }
@@ -435,9 +435,6 @@ public class trivial : MonoBehaviour
 
         updateLives(hearts1, playerLives[0]);
         updateLives(hearts2, playerLives[1]);
-        updateScores(achievements1, scores[0]);
-        updateScores(achievements2, scores[1]);
-
         // Volver a mostrar la pantalla del juego
         gameScreen.SetActive(true);
         questionScreen.SetActive(false);
